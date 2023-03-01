@@ -7,3 +7,15 @@ before_install:
 
 script:
   - docker run -e CI=true wdawid/docker-react npm run test
+
+deploy:
+  provider: elasticbeanstalk
+  region: "us-west-2" # take from URL in AWS
+  app: "docker" # name from AWS
+  env: "Docker-env" # copy from AWS
+  bucket_name: "elasticbeanstalk-us-west-2-306476627547" # Services -> S3 -> look for the bucket (elasticbeanstalk-us-west-2...)
+  bucket_path: "docker"
+  on:
+    branch: master
+  acces_key_id: $AWS_ACCESS_KEY
+  secret_acces_key: "$AWS_SECRET_KEY"
